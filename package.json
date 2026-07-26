@@ -4,37 +4,42 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "vite",
+        "dev": "npm run build:ts && vite",
         "build": "npm run build:ts && npm exec vite build",
         "build:ts": "tsc -b",
         "clean": "tsc --build --clean && rm -rf types dist",
         "uninstall": "npm run clean && rm -rf node_modules package-lock.json",
         "lint": "npm run build:ts && eslint .",
+        "lint:md": "npm exec markdownlint-cli2",
+        "lint:verbose": "npm run lint -- --debug",
         "format": "prettier . --write",
         "fix": "npm run build:ts && npm run format && npm run lint -- --fix",
+        "fix:md": "npm exec prettier './**/*.md' '!**/*.api.md' --write &&  npm run lint:md -- --fix",
+        "check": "npm run build:ts && npm run lint",
+        "check:md": "npm exec prettier './**/*.md' '!**/*.api.md' &&  npm run lint:md",
         "preview": "vite preview",
         "postinstall": "./bin/esbuild-patch.sh && npm run build"
     },
     "dependencies": {
-        "prettier": "^3.9.6",
         "react": "^19.2.7",
         "react-dom": "^19.2.7"
     },
     "devDependencies": {
-        "@snailicid3/config": "^0.1.4",
-        "esbuild": "^0.28.1",
-        "@eslint/js": "^10.0.1",
+        "@snailicid3/config": "^0.2.0",
         "@types/node": "^24.13.2",
         "@types/react": "^19.2.17",
         "@types/react-dom": "^19.2.3",
         "@vitejs/plugin-react": "^6.0.3",
-        "eslint": "^10.6.0",
-        "eslint-plugin-react-hooks": "^7.1.1",
-        "eslint-plugin-react-refresh": "^0.5.3",
-        "globals": "^17.7.0",
-        "typescript": "~6.0.2",
-        "typescript-eslint": "^8.62.0",
+        "esbuild": "^0.28.1",
+        "markdownlint-cli2": "^0.23.1",
+        "patch-package": "^8.0.1",
+        "prettier": "^3.9.6",
+        "typescript": "^6.0.3",
         "vite": "^8.1.1"
     },
-    "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319"
+    "engines": {
+        "node": "^20.11.0",
+        "npm": ">=10.0.0"
+    },
+    "packageManager": "npm@10.9.2"
 }

@@ -8,6 +8,11 @@ Issue Title DERP HI
 
 ```sh
 npm exec gbt-exec bin/esbuild-patch.sh
+
+➜  crappy-vite-project git:(main) ✗ npm exec gbt-exec bin/esbuild-patch.sh
+
+loader dir: /Users/gilliantunney/working/crappy-vite-project/node_modules/.bin
+
 [CRITICAL] unable to locate bootstrap.sh!
 ```
 

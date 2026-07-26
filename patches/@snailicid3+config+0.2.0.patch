@@ -1,0 +1,178 @@
+diff --git a/node_modules/@snailicid3/config/bin/changeset-branch.sh b/node_modules/@snailicid3/config/bin/changeset-branch.sh
+index 47c7ff4..e996d98 100755
+--- a/node_modules/@snailicid3/config/bin/changeset-branch.sh
++++ b/node_modules/@snailicid3/config/bin/changeset-branch.sh
+@@ -3,6 +3,14 @@ set -euo pipefail
+ 
+ # START SH BOOTSTRAP LOADER
+ SCRIPT_SOURCE_PATH="${BASH_SOURCE[0]}"
++if [[ -L "$SCRIPT_SOURCE_PATH" ]]; then
++    SCRIPT_SOURCE_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
++    SCRIPT_LINK_TARGET="$(readlink "$SCRIPT_SOURCE_PATH")"
++    case "$SCRIPT_LINK_TARGET" in
++        /*) SCRIPT_SOURCE_PATH="$SCRIPT_LINK_TARGET" ;;
++        *) SCRIPT_SOURCE_PATH="$SCRIPT_SOURCE_DIR/$SCRIPT_LINK_TARGET" ;;
++    esac
++fi
+ LOADER_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
+ 
+ resolve_bootstrap_path() {
+diff --git a/node_modules/@snailicid3/config/bin/completions/install-pnpm.sh b/node_modules/@snailicid3/config/bin/completions/install-pnpm.sh
+index 080c34c..985defb 100755
+--- a/node_modules/@snailicid3/config/bin/completions/install-pnpm.sh
++++ b/node_modules/@snailicid3/config/bin/completions/install-pnpm.sh
+@@ -3,6 +3,14 @@ set -euo pipefail
+ 
+ # START SH BOOTSTRAP LOADER
+ SCRIPT_SOURCE_PATH="${BASH_SOURCE[0]}"
++if [[ -L "$SCRIPT_SOURCE_PATH" ]]; then
++    SCRIPT_SOURCE_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
++    SCRIPT_LINK_TARGET="$(readlink "$SCRIPT_SOURCE_PATH")"
++    case "$SCRIPT_LINK_TARGET" in
++        /*) SCRIPT_SOURCE_PATH="$SCRIPT_LINK_TARGET" ;;
++        *) SCRIPT_SOURCE_PATH="$SCRIPT_SOURCE_DIR/$SCRIPT_LINK_TARGET" ;;
++    esac
++fi
+ LOADER_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
+ 
+ resolve_bootstrap_path() {
+diff --git a/node_modules/@snailicid3/config/bin/esbuild-patch/patch.sh b/node_modules/@snailicid3/config/bin/esbuild-patch/patch.sh
+index eb7223c..8d33bcf 100755
+--- a/node_modules/@snailicid3/config/bin/esbuild-patch/patch.sh
++++ b/node_modules/@snailicid3/config/bin/esbuild-patch/patch.sh
+@@ -1,9 +1,19 @@
+ #!/usr/bin/env bash
+ # Replace esbuild's Darwin x64 executable with a Catalina-compatible build.
+ 
+-BOOTSTRAP_CALLER_SOURCE="${BASH_SOURCE[0]}"
++SCRIPT_SOURCE_PATH="${BASH_SOURCE[0]}"
++if [[ -L "$SCRIPT_SOURCE_PATH" ]]; then
++    SCRIPT_SOURCE_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
++    SCRIPT_LINK_TARGET="$(readlink "$SCRIPT_SOURCE_PATH")"
++    case "$SCRIPT_LINK_TARGET" in
++        /*) SCRIPT_SOURCE_PATH="$SCRIPT_LINK_TARGET" ;;
++        *) SCRIPT_SOURCE_PATH="$SCRIPT_SOURCE_DIR/$SCRIPT_LINK_TARGET" ;;
++    esac
++fi
++
++BOOTSTRAP_CALLER_SOURCE="$SCRIPT_SOURCE_PATH"
+ # shellcheck source=../bootstrap.sh
+-. "$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)/bootstrap.sh"
++. "$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")/.." && pwd)/bootstrap.sh"
+ 
+ PATCH_BINARY="$SCRIPT_DIR/esbuild-darwin-x64"
+ CONSUMER_DIR="${GBT_PATCH_CWD:-$PWD}"
+diff --git a/node_modules/@snailicid3/config/bin/inspect-dependencies.sh b/node_modules/@snailicid3/config/bin/inspect-dependencies.sh
+index de53e80..4fc77a1 100755
+--- a/node_modules/@snailicid3/config/bin/inspect-dependencies.sh
++++ b/node_modules/@snailicid3/config/bin/inspect-dependencies.sh
+@@ -3,6 +3,14 @@ set -euo pipefail
+ 
+ # START SH BOOTSTRAP LOADER
+ SCRIPT_SOURCE_PATH="${BASH_SOURCE[0]}"
++if [[ -L "$SCRIPT_SOURCE_PATH" ]]; then
++    SCRIPT_SOURCE_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
++    SCRIPT_LINK_TARGET="$(readlink "$SCRIPT_SOURCE_PATH")"
++    case "$SCRIPT_LINK_TARGET" in
++        /*) SCRIPT_SOURCE_PATH="$SCRIPT_LINK_TARGET" ;;
++        *) SCRIPT_SOURCE_PATH="$SCRIPT_SOURCE_DIR/$SCRIPT_LINK_TARGET" ;;
++    esac
++fi
+ LOADER_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
+ 
+ resolve_bootstrap_path() {
+diff --git a/node_modules/@snailicid3/config/bin/make-executable.sh b/node_modules/@snailicid3/config/bin/make-executable.sh
+index 7694aa8..3e24a89 100755
+--- a/node_modules/@snailicid3/config/bin/make-executable.sh
++++ b/node_modules/@snailicid3/config/bin/make-executable.sh
+@@ -5,6 +5,14 @@ set -euo pipefail
+ 
+ # START SH BOOTSTRAP LOADER
+ SCRIPT_SOURCE_PATH="${BASH_SOURCE[0]}"
++if [[ -L "$SCRIPT_SOURCE_PATH" ]]; then
++    SCRIPT_SOURCE_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
++    SCRIPT_LINK_TARGET="$(readlink "$SCRIPT_SOURCE_PATH")"
++    case "$SCRIPT_LINK_TARGET" in
++        /*) SCRIPT_SOURCE_PATH="$SCRIPT_LINK_TARGET" ;;
++        *) SCRIPT_SOURCE_PATH="$SCRIPT_SOURCE_DIR/$SCRIPT_LINK_TARGET" ;;
++    esac
++fi
+ LOADER_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
+ COMMAND_NAME="${COMMAND_NAME:-gbt-exec}"
+ resolve_bootstrap_path() {
+diff --git a/node_modules/@snailicid3/config/bin/scope/affected.sh b/node_modules/@snailicid3/config/bin/scope/affected.sh
+index de60fb7..cbd4cb1 100755
+--- a/node_modules/@snailicid3/config/bin/scope/affected.sh
++++ b/node_modules/@snailicid3/config/bin/scope/affected.sh
+@@ -3,6 +3,14 @@ set -euo pipefail
+ 
+ # START SH BOOTSTRAP LOADER
+ SCRIPT_SOURCE_PATH="${BASH_SOURCE[0]}"
++if [[ -L "$SCRIPT_SOURCE_PATH" ]]; then
++    SCRIPT_SOURCE_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
++    SCRIPT_LINK_TARGET="$(readlink "$SCRIPT_SOURCE_PATH")"
++    case "$SCRIPT_LINK_TARGET" in
++        /*) SCRIPT_SOURCE_PATH="$SCRIPT_LINK_TARGET" ;;
++        *) SCRIPT_SOURCE_PATH="$SCRIPT_SOURCE_DIR/$SCRIPT_LINK_TARGET" ;;
++    esac
++fi
+ LOADER_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
+ 
+ resolve_bootstrap_path() {
+diff --git a/node_modules/@snailicid3/config/bin/scope/commit.sh b/node_modules/@snailicid3/config/bin/scope/commit.sh
+index 24226a0..d648aef 100755
+--- a/node_modules/@snailicid3/config/bin/scope/commit.sh
++++ b/node_modules/@snailicid3/config/bin/scope/commit.sh
+@@ -3,6 +3,14 @@ set -euo pipefail
+ 
+ # START SH BOOTSTRAP LOADER
+ SCRIPT_SOURCE_PATH="${BASH_SOURCE[0]}"
++if [[ -L "$SCRIPT_SOURCE_PATH" ]]; then
++    SCRIPT_SOURCE_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
++    SCRIPT_LINK_TARGET="$(readlink "$SCRIPT_SOURCE_PATH")"
++    case "$SCRIPT_LINK_TARGET" in
++        /*) SCRIPT_SOURCE_PATH="$SCRIPT_LINK_TARGET" ;;
++        *) SCRIPT_SOURCE_PATH="$SCRIPT_SOURCE_DIR/$SCRIPT_LINK_TARGET" ;;
++    esac
++fi
+ LOADER_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
+ 
+ resolve_bootstrap_path() {
+diff --git a/node_modules/@snailicid3/config/bin/snail-sh-test.sh b/node_modules/@snailicid3/config/bin/snail-sh-test.sh
+index ccd1537..abb7c30 100644
+--- a/node_modules/@snailicid3/config/bin/snail-sh-test.sh
++++ b/node_modules/@snailicid3/config/bin/snail-sh-test.sh
+@@ -3,6 +3,14 @@ set -euo pipefail
+ 
+ # START SH BOOTSTRAP LOADER
+ SCRIPT_SOURCE_PATH="${BASH_SOURCE[0]}"
++if [[ -L "$SCRIPT_SOURCE_PATH" ]]; then
++    SCRIPT_SOURCE_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
++    SCRIPT_LINK_TARGET="$(readlink "$SCRIPT_SOURCE_PATH")"
++    case "$SCRIPT_LINK_TARGET" in
++        /*) SCRIPT_SOURCE_PATH="$SCRIPT_LINK_TARGET" ;;
++        *) SCRIPT_SOURCE_PATH="$SCRIPT_SOURCE_DIR/$SCRIPT_LINK_TARGET" ;;
++    esac
++fi
+ LOADER_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
+ 
+ resolve_bootstrap_path() {
+diff --git a/node_modules/@snailicid3/config/bin/uninstall.sh b/node_modules/@snailicid3/config/bin/uninstall.sh
+index 034a82d..d318884 100755
+--- a/node_modules/@snailicid3/config/bin/uninstall.sh
++++ b/node_modules/@snailicid3/config/bin/uninstall.sh
+@@ -3,6 +3,14 @@ set -euo pipefail
+ 
+ # START SH BOOTSTRAP LOADER
+ SCRIPT_SOURCE_PATH="${BASH_SOURCE[0]}"
++if [[ -L "$SCRIPT_SOURCE_PATH" ]]; then
++    SCRIPT_SOURCE_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
++    SCRIPT_LINK_TARGET="$(readlink "$SCRIPT_SOURCE_PATH")"
++    case "$SCRIPT_LINK_TARGET" in
++        /*) SCRIPT_SOURCE_PATH="$SCRIPT_LINK_TARGET" ;;
++        *) SCRIPT_SOURCE_PATH="$SCRIPT_SOURCE_DIR/$SCRIPT_LINK_TARGET" ;;
++    esac
++fi
+ LOADER_DIR="$(CDPATH= cd -- "$(dirname -- "$SCRIPT_SOURCE_PATH")" && pwd)"
+ 
+ resolve_bootstrap_path() {
