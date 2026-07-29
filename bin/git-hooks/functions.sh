@@ -63,6 +63,19 @@ show_hook_section() {
     run_snail_sh spacer 1
 }
 
+show_completed_commit() {
+    commit_message="$(git log -1 --format=%s)"
+    run_snail_sh spacer 1
+    run_snail_sh status_pair 'Commit message' "$commit_message" success
+    run_snail_sh success 'Commit completed successfully.'
+    run_snail_sh spacer 1
+}
+
+run_scope_commit() {
+    run_package_binary scope-commit --checked-commit "$@" || return $?
+    show_completed_commit
+}
+
 get_current_branch() {
     git rev-parse --abbrev-ref HEAD
 }
@@ -130,6 +143,8 @@ print_usage() {
         '  run_package_binary <binary> [arguments...]' \
         '  run_snail_sh <command> [arguments...]' \
         '  show_hook_section <hook-name>' \
+        '  show_completed_commit' \
+        '  run_scope_commit [scope-commit arguments...]' \
         '  check_protected_branch <commit|push>' \
         '  validate_branch_name' \
         '  check_staged_filenames' \
@@ -154,7 +169,7 @@ run_git_hook_function() {
             fi
             "$command_name"
             ;;
-        run_package_script | run_package_binary | run_snail_sh | show_hook_section)
+        run_package_script | run_package_binary | run_snail_sh | show_hook_section | run_scope_commit)
             if [ "$#" -lt 1 ]; then
                 print_usage
                 return 2
@@ -168,7 +183,7 @@ run_git_hook_function() {
             fi
             check_protected_branch "$1"
             ;;
-        validate_branch_name | check_staged_filenames | run_lint_staged_if_needed)
+        validate_branch_name | check_staged_filenames | run_lint_staged_if_needed | show_completed_commit)
             if [ "$#" -ne 0 ]; then
                 print_usage
                 return 2

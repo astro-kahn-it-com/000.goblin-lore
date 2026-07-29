@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "\n========== COMMIT >> ==========": "",
-        "commit": "npm run build:ts && ./bin/git-hooks/functions.sh show_hook_section 'lint-staged' && SCOPE_COMMIT_MANAGES_LINT_STAGED=1 npm exec -- scope-commit --checked-commit",
+        "commit": "npm run build:config:ts && ./bin/git-hooks/functions.sh show_hook_section 'lint-staged' && SCOPE_COMMIT_MANAGES_LINT_STAGED=1 ./bin/git-hooks/functions.sh run_scope_commit",
         "commit:feat": "npm run commit feat",
         "commit:fix": "npm run commit fix",
         "commit:chore": "npm run commit chore",
@@ -13,43 +13,50 @@
         "commit:test": "npm run commit test",
         "commit:build": "npm run commit build",
         "commit:docs": "npm run commit docs",
-        "commit:direct": "npm run build:ts && SCOPE_COMMIT_MANAGES_LINT_STAGED=1 npm exec -- scope-commit --checked-commit --skip-lint-staged",
+        "commit:direct": "npm run build:config:ts && SCOPE_COMMIT_MANAGES_LINT_STAGED=1 ./bin/git-hooks/functions.sh run_scope_commit --skip-lint-staged",
         "commitlint": "npm exec -- commitlint",
         "\n========== BUILD >> ==========": "",
-        "build": "npm run build:ts && npm exec -- vite build",
-        "build:ts": "tsc -b",
+        "build": "npm run build:all:ts && npm exec -- vite build",
+        "build:ts": "npm exec -- tsc --build tsconfig.build.json",
+        "build:config:ts": "npm exec -- tsc --build tsconfig.config.json",
+        "build:all:ts": "npm run build:config:ts && npm run build:ts && npm run check:ts",
+        "\n========== TEST >> ==========": "",
+        "test": "npm run check:ts && npm exec -- vitest run",
+        "test:watch": "npm exec -- vitest",
         "\n========== DEVELOPMENT >> ==========": "",
-        "dev": "npm run build:ts && vite",
+        "dev": "npm run check:ts && npm run build:ts && vite",
         "\n========== PUBLISH >> ==========": "",
         "changeset": "npm exec -- gbt-changeset",
         "changeset:status": "npm exec -- changeset status",
         "changeset:version": "npm exec -- changeset version",
         "release": "npm exec -- changeset publish",
         "\n========== INSPECT >> ==========": "",
-        "inspect:dependencies": "npm run build:ts && npm exec -- knip",
+        "inspect:dependencies": "npm run build:all:ts && npm exec -- knip",
         "inspect:deps": "npm run inspect:dependencies",
         "inspect:lint": "npm exec -- eslint-config-inspector --no-open",
         "\n========== LIFECYCLE >> ==========": "",
         "uninstall": "npm run clean && rm -rf node_modules package-lock.json",
         "prepare": "husky",
         "lint:staged": "npm exec -- lint-staged --relative",
-        "postinstall": "npm exec -- patch-package && ./bin/esbuild-patch.sh && npm run build",
+        "postinstall": "npm exec -- patch-package && ./bin/esbuild-patch.sh && npm run build:config:ts",
         "\n========== CHECK >> ==========": "",
-        "check": "npm run build:ts && npm run lint",
+        "check": "npm run build:all:ts && npm run lint",
+        "check:ts": "npm exec -- tsc --build tsconfig.json",
         "check:md": "npm exec -- prettier './**/*.md' '!**/*.api.md' && npm run lint:md",
-        "lint": "npm run build:ts && eslint .",
+        "lint": "eslint .",
         "lint:md": "npm exec -- markdownlint-cli2",
         "lint:verbose": "npm run lint -- --debug",
         "\n========== FIX >> ==========": "",
         "format": "prettier . --write",
-        "fix": "npm run build:ts && npm run format && npm run lint -- --fix",
+        "fix": "npm run build:all:ts && npm run check:ts && npm run format && npm run lint -- --fix",
         "fix:md": "npm exec -- prettier './**/*.md' '!**/*.api.md' --write && npm run lint:md -- --fix",
         "\n========== CLEAN >> ==========": "",
-        "clean:ts": "npm exec -- tsc --build --clean",
-        "clean:build": "npm exec -- rm -rf dist types",
+        "clean:ts": "npm exec -- tsc --build --clean tsconfig.json tsconfig.build.json tsconfig.config.json",
+        "clean:build": "rm -rf dist types",
         "clean": "npm run clean:ts && npm run clean:build"
     },
     "dependencies": {
+        "@snailicid3/utils": "^0.0.5",
         "react": "^19.2.7",
         "react-dom": "^19.2.7"
     },
@@ -71,11 +78,28 @@
         "patch-package": "^8.0.1",
         "prettier": "^3.9.6",
         "typescript": "^6.0.3",
-        "vite": "^8.1.1"
+        "vite": "^8.1.1",
+        "vitest": "^4.1.9"
     },
     "engines": {
         "node": "^20.11.0",
         "npm": ">=10.0.0"
     },
-    "packageManager": "npm@10.9.2"
+    "packageManager": "npm@10.9.2",
+    "files": [
+        "CHANGELOG.md",
+        "dist",
+        "types"
+    ],
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.mjs",
+    "types": "./types/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./types/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs"
+        },
+        "./package.json": "./package.json"
+    }
 }

@@ -1,7 +1,27 @@
+// This is the silent library checker - the vite/tsdown config and anything related. no root files
+// root level ts files that are part of library should be explicitely included here and excluded in the config.tsconfig
+/*
+ * Emitted:
+ * - JS : false
+ * - Types : false
+ */
+
 {
-    "files": [],
-    "references": [
-        { "path": "./tsconfig.app.json" },
-        { "path": "./tsconfig.node.json" }
+    "extends": "@snailicid3/config/tsconfig.typecheck",
+    "exclude": [
+        "./node_modules",
+        "./scratch/*",
+        "./*.ts",
+        "./*.cts",
+        "./*.mts"
+    ],
+    "files": ["package.json", "vite.config.ts", "vitest.config.ts"],
+    "include": [
+        "./src/**/*.ts",
+        "./src/**/*.cts",
+        "./src/**/*.mts",
+        "./**/*.test.ts",
+        "./**/*.test.mts",
+        "./**/*.test.cts"
     ]
 }

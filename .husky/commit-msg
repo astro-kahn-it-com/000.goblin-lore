@@ -7,8 +7,3 @@ REPO_ROOT="$(git rev-parse --show-toplevel)"
 commit_message_file="$1"
 show_hook_section 'Commit message hook'
 run_package_binary commitlint --edit "$commit_message_file"
-
-commit_message="$(sed -n '1p' "$commit_message_file")"
-run_snail_sh spacer 1
-run_snail_sh status_pair 'Commit message' "$commit_message" success
-run_snail_sh success 'Commit message validation passed.'
