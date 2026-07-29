@@ -1,3 +1,6 @@
 import { LintStaged, type LintStagedConfig } from '@snailicid3/config'
-const config: LintStagedConfig = LintStaged.config({ cwd: import.meta })
+const config: LintStagedConfig = LintStaged.config({
+    cwd: import.meta,
+    packageManager: 'npm',
+})
 export default config

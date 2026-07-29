@@ -1,0 +1,23 @@
+{
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "donjayamanne.git-extension-pack",
+        "mhutchie.git-graph",
+        "donjayamanne.githistory",
+        "github.copilot-chat",
+        "eamodio.gitlens",
+        "xyz.local-history",
+        "nrwl.angular-console",
+        "christian-kohler.path-intellisense",
+        "gruntfuggly.todo-tree",
+        "alefragnani.bookmarks",
+        "github.codespaces",
+        "github.copilot",
+        "ms-vscode.vscode-speech",
+        "naumovs.color-highlight",
+        "christian-kohler.npm-intellisense",
+        "redhat.vscode-yaml",
+        "openai.chatgpt",
+        "esbenp.prettier-vscode"
+    ]
+}

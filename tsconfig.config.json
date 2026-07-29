@@ -1,0 +1,20 @@
+/** root level configuration typescript files
+ * Emitted:
+ * - JS : true
+ * - Types : false
+ */
+{
+    "extends": "@snailicid3/config/tsconfig.typecheck",
+    "compilerOptions": {
+        "types": ["node"],
+        "noEmit": false
+    },
+    "exclude": [
+        "node_modules",
+        "scratch",
+        "vitest.config.ts",
+        "vite.config.ts"
+    ],
+    "files": ["./.markdownlint-cli2.mts", "./.lintstagedrc.mts"],
+    "include": ["./*.ts", "./*.cts", "./*.mts"]
+}
