@@ -77,14 +77,12 @@ check_protected_branch() {
         return 1
     fi
 
-    run_snail_sh status_pair 'Protected branch check' passed success
 }
 
 validate_branch_name() {
     branch="$(get_current_branch)"
 
     if printf '%s\n' "$branch" | grep -Eq '^[a-zA-Z0-9]+([/-][a-zA-Z0-9]+)*$'; then
-        run_snail_sh status_pair 'Branch name' "$branch" success
         return
     fi
 
@@ -101,7 +99,6 @@ check_staged_filenames() {
     )"
 
     if [ -z "$bad_files" ]; then
-        run_snail_sh status_pair 'Staged filenames' passed success
         return
     fi
 
