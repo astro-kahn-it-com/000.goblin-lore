@@ -59,7 +59,7 @@ run_snail_sh() {
 show_hook_section() {
     hook_name="$1"
     run_snail_sh spacer 1
-    run_snail_sh kabob "🐌 Running: $hook_name hook..." '90%' magenta true
+    run_snail_sh kabob "🐌 Running: $hook_name ..." '90%' magenta true
     run_snail_sh spacer 1
 }
 
@@ -113,11 +113,12 @@ check_staged_filenames() {
 
 run_lint_staged_if_needed() {
     if [ "${SCOPE_COMMIT_MANAGES_LINT_STAGED:-0}" = '1' ]; then
+        run_snail_sh spacer 1
         run_snail_sh status_pair 'lint-staged' 'handled by scope-commit' success
+        run_snail_sh spacer 1
         return
     fi
-
-    run_snail_sh status_pair 'lint-staged' running info
+    show_hook_section 'lint-staged'
     run_package_script lint:staged
 }
 

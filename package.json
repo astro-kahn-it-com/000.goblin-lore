@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "\n========== COMMIT >> ==========": "",
-        "commit": "npm run build:ts && SCOPE_COMMIT_MANAGES_LINT_STAGED=1 npm exec -- scope-commit --checked-commit",
+        "commit": "npm run build:ts && ./bin/git-hooks/functions.sh show_hook_section 'lint-staged' && SCOPE_COMMIT_MANAGES_LINT_STAGED=1 npm exec -- scope-commit --checked-commit",
         "commit:feat": "npm run commit feat",
         "commit:fix": "npm run commit fix",
         "commit:chore": "npm run commit chore",

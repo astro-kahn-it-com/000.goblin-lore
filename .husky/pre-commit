@@ -4,7 +4,7 @@ set -eu
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 . "$REPO_ROOT/bin/git-hooks/functions.sh"
 
-show_hook_section 'Pre-commit'
+show_hook_section 'Pre-commit hook'
 check_protected_branch "commit"
 validate_branch_name
 check_staged_filenames
