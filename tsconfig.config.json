@@ -9,12 +9,7 @@
         "types": ["node"],
         "noEmit": false
     },
-    "exclude": [
-        "node_modules",
-        "scratch",
-        "vitest.config.ts",
-        "vite.config.ts"
-    ],
+    "exclude": ["node_modules", "scratch", "vitest.config.ts", "tsdown.ts"],
     "files": ["./.markdownlint-cli2.mts", "./.lintstagedrc.mts"],
     "include": ["./*.ts", "./*.cts", "./*.mts"]
 }

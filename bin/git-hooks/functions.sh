@@ -201,6 +201,8 @@ run_git_hook_function() {
     esac
 }
 
-if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
-    run_git_hook_function "$@"
-fi
+case "$0" in
+    */functions.sh | functions.sh)
+        run_git_hook_function "$@"
+        ;;
+esac

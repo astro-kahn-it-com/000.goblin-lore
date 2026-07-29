@@ -2,6 +2,7 @@
     "name": "@snailicid3/consumer-npm",
     "private": true,
     "version": "0.0.0",
+    "description": "npm consumer fixture for the snailicid3 package ecosystem",
     "type": "module",
     "scripts": {
         "\n========== COMMIT >> ==========": "",
@@ -16,7 +17,7 @@
         "commit:direct": "npm run build:config:ts && SCOPE_COMMIT_MANAGES_LINT_STAGED=1 ./bin/git-hooks/functions.sh run_scope_commit --skip-lint-staged",
         "commitlint": "npm exec -- commitlint",
         "\n========== BUILD >> ==========": "",
-        "build": "npm run build:all:ts && npm exec -- vite build",
+        "build": "npm run build:all:ts && npm exec -- tsdown",
         "build:ts": "npm exec -- tsc --build tsconfig.build.json",
         "build:config:ts": "npm exec -- tsc --build tsconfig.config.json",
         "build:all:ts": "npm run build:config:ts && npm run build:ts && npm run check:ts",
@@ -56,13 +57,10 @@
         "clean": "npm run clean:ts && npm run clean:build"
     },
     "dependencies": {
-        "@snailicid3/build-config": "^0.0.8",
-        "@snailicid3/utils": "^0.0.5",
-        "react": "^19.2.7",
-        "react-dom": "^19.2.7",
-        "tsdown": "^0.22.14"
+        "@snailicid3/utils": "^0.0.5"
     },
     "devDependencies": {
+        "@snailicid3/build-config": "^0.0.8",
         "@changesets/cli": "^2.31.1",
         "@commitlint/cli": "^21.2.1",
         "@snailicid3/config": "^0.2.0",
@@ -81,7 +79,8 @@
         "prettier": "^3.9.6",
         "typescript": "^6.0.3",
         "vite": "^8.1.1",
-        "vitest": "^4.1.9"
+        "vitest": "^4.1.9",
+        "tsdown": "^0.22.14"
     },
     "engines": {
         "node": "^20.11.0",
@@ -93,6 +92,15 @@
         "dist",
         "types"
     ],
+    "author": {
+        "name": "Gillian Tunney",
+        "email": "gbtunney@mac.com"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/gbtunney/snailicid3-consumer-npm"
+    },
     "main": "./dist/index.cjs",
     "module": "./dist/index.mjs",
     "types": "./types/index.d.ts",
