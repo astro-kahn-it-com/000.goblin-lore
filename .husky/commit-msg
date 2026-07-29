@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 set -eu
 
-npm exec -- commitlint --edit "$1"
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+. "$REPO_ROOT/bin/git-hooks/functions.sh"
+
+commit_message_file="$1"
+run_package_binary commitlint --edit "$commit_message_file"

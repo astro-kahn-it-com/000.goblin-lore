@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "\n========== COMMIT >> ==========": "",
-        "commit": "npm run build:ts && npm exec -- scope-commit --checked-commit",
+        "commit": "npm run build:ts && SCOPE_COMMIT_MANAGES_LINT_STAGED=1 npm exec -- scope-commit --checked-commit",
         "commit:feat": "npm run commit feat",
         "commit:fix": "npm run commit fix",
         "commit:chore": "npm run commit chore",
@@ -13,7 +13,7 @@
         "commit:test": "npm run commit test",
         "commit:build": "npm run commit build",
         "commit:docs": "npm run commit docs",
-        "commit:direct": "npm run build:ts&& npm exec scope-commit --checked-commit --skip-lint-staged",
+        "commit:direct": "npm run build:ts && SCOPE_COMMIT_MANAGES_LINT_STAGED=1 npm exec -- scope-commit --checked-commit --skip-lint-staged",
         "changeset": "npm exec gbt-changeset",
         "changeset:status": "npm exec changeset status",
         "changeset:version": "npm exec changeset version",

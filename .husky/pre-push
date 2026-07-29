@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-npm run check
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+. "$REPO_ROOT/bin/git-hooks/functions.sh"
+
+check_protected_branch "push"

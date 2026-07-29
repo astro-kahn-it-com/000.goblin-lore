@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
 set -eu
 
-npm run lint:staged
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+. "$REPO_ROOT/bin/git-hooks/functions.sh"
+
+check_protected_branch "commit"
+validate_branch_name
+check_staged_filenames
+run_lint_staged_if_needed
