@@ -52,6 +52,17 @@ run_package_binary() {
     esac
 }
 
+run_snail_sh() {
+    run_package_binary snail-sh "$@"
+}
+
+show_hook_section() {
+    hook_name="$1"
+    run_snail_sh spacer 1
+    run_snail_sh kabob "🐌 Running: $hook_name hook..." '90%' magenta true
+    run_snail_sh spacer 1
+}
+
 get_current_branch() {
     git rev-parse --abbrev-ref HEAD
 }
@@ -61,22 +72,24 @@ check_protected_branch() {
     branch="$(get_current_branch)"
 
     if printf '%s\n' "$branch" | grep -Eq '^(master|main)$'; then
-        printf "\nDirect %s on protected branch '%s' is not allowed.\n\n" \
-            "$operation" "$branch"
+        run_snail_sh critical "Direct $operation on protected branch '$branch' is not allowed."
+        run_snail_sh status_pair 'Branch' "$branch" critical
         return 1
     fi
+
+    run_snail_sh status_pair 'Protected branch check' passed success
 }
 
 validate_branch_name() {
     branch="$(get_current_branch)"
 
     if printf '%s\n' "$branch" | grep -Eq '^[a-zA-Z0-9]+([/-][a-zA-Z0-9]+)*$'; then
-        printf 'Branch name is valid: %s\n' "$branch"
+        run_snail_sh status_pair 'Branch name' "$branch" success
         return
     fi
 
-    printf "\nBranch name must be alphanumeric and may contain '/' or '-': %s\n\n" \
-        "$branch"
+    run_snail_sh critical "Invalid branch name: $branch"
+    run_snail_sh status_pair 'Allowed separators' '/ and -' info
     return 1
 }
 
@@ -88,21 +101,23 @@ check_staged_filenames() {
     )"
 
     if [ -z "$bad_files" ]; then
+        run_snail_sh status_pair 'Staged filenames' passed success
         return
     fi
 
-    printf '\nBad characters found in staged filenames.\n'
-    printf 'Allowed: A-Z a-z 0-9 space . _ - + @ /\n'
-    printf 'Rename these files:\n%s\n\n' "$bad_files"
+    run_snail_sh critical 'Bad characters found in staged filenames.'
+    run_snail_sh status_pair 'Allowed characters' 'A-Z a-z 0-9 space . _ - + @ /' info
+    run_snail_sh status_pair 'Rename these files' "$bad_files" error
     return 1
 }
 
 run_lint_staged_if_needed() {
     if [ "${SCOPE_COMMIT_MANAGES_LINT_STAGED:-0}" = '1' ]; then
-        printf 'lint-staged handled by scope-commit.\n'
+        run_snail_sh status_pair 'lint-staged' 'handled by scope-commit' success
         return
     fi
 
+    run_snail_sh status_pair 'lint-staged' running info
     run_package_script lint:staged
 }
 
@@ -115,6 +130,8 @@ print_usage() {
         '  get_package_manager' \
         '  run_package_script <script> [arguments...]' \
         '  run_package_binary <binary> [arguments...]' \
+        '  run_snail_sh <command> [arguments...]' \
+        '  show_hook_section <hook-name>' \
         '  check_protected_branch <commit|push>' \
         '  validate_branch_name' \
         '  check_staged_filenames' \
@@ -139,7 +156,7 @@ run_git_hook_function() {
             fi
             "$command_name"
             ;;
-        run_package_script | run_package_binary)
+        run_package_script | run_package_binary | run_snail_sh | show_hook_section)
             if [ "$#" -lt 1 ]; then
                 print_usage
                 return 2

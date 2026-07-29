@@ -4,4 +4,5 @@ set -eu
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 . "$REPO_ROOT/bin/git-hooks/functions.sh"
 
+show_hook_section 'Pre-push'
 check_protected_branch "push"
