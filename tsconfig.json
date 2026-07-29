@@ -8,15 +8,16 @@
 
 {
     "extends": "@snailicid3/config/tsconfig.typecheck",
-    "exclude": [
-        "./node_modules",
-        "./scratch/*",
+    "exclude": ["./node_modules", "./scratch/*"],
+
+    "files": ["package.json"],
+
+    "include": [
+        "./.markdownlint-cli2.mts",
+        "./.lintstagedrc.mts",
         "./*.ts",
         "./*.cts",
-        "./*.mts"
-    ],
-    "files": ["package.json", "vite.config.ts", "vitest.config.ts"],
-    "include": [
+        "./*.mts",
         "./src/**/*.ts",
         "./src/**/*.cts",
         "./src/**/*.mts",
