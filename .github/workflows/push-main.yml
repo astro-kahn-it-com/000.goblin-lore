@@ -112,6 +112,9 @@ jobs:
                   echo "branch=release/$slug" >> "$GITHUB_OUTPUT"
                   echo "Release branch: release/$slug"
 
+            # NOTE: this deletes the .changeset/*.md files. The branch slug is
+            # already captured above (steps.detect.outputs.primary + the Derive
+            # step), so it must stay AFTER "Derive release branch".
             - name: Version packages
               if: steps.detect.outputs.has_changesets == 'true'
               run: npm run changeset:version
