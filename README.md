@@ -35,11 +35,11 @@ the shared linting, formatting, commit, and Git-hook workflows.
 - [ ] Verify tsdown and its native dependencies on macOS Catalina before replacing the working Vite
       library build.
 - [ ] Add the `@snailicid3/build-config` GitHub Release badge when that integration is active.
-- [ ]
+- [ ] Actions from other setup.
 - [ ] Add API Extractor configuration with API report and API compatibility-check scripts.
 - [ ] Add a TypeDoc demo generated from the public `src/index.ts` exports.
 
-## Clone and set up
+## Usage - fork and clone
 
 ```sh
 git clone https://github.com/gbtunney/snailicid3-consumer-npm.git
@@ -47,7 +47,7 @@ cd snailicid3-consumer-npm
 npm install
 ```
 
-To turn the clone into a different repository:
+Turn the clone into a different repository:
 
 ```sh
 git remote rename origin upstream
