@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -eu
 
-npm exec commitlint --edit "$1"
+npm exec -- commitlint --edit "$1"
