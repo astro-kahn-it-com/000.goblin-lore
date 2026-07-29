@@ -108,6 +108,46 @@ npm run commit:chore -- "update tooling"
 
 Direct `git commit` calls remain protected by the Husky pre-commit hook.
 
+## Continuous integration
+
+Two GitHub Actions workflows live in `.github/workflows/`:
+
+- **PR Checks** (`pr-checks.yml`) — runs on every pull request into `main`. It installs
+  dependencies, runs `build`, then runs `test`, `docs:build`, and `api:check` _only if_ those
+  scripts exist (via `npm run … --if-present`).
+- **Push Main** (`push-main.yml`) — runs on every push to `main`. If there are pending changesets
+  it opens (or updates) a "version packages" pull request on a `release/<slug>` branch. Once that
+  PR is merged and no changesets remain, it creates a GitHub Release tagged `v<version>`.
+
+### Optional but recommended: the `GH_PAT` secret
+
+**Read this even if you have never made a token before — it is copy-and-paste simple.**
+
+The version PR that **Push Main** opens is created using GitHub's built-in `GITHUB_TOKEN`. GitHub
+has a rule: **workflows do not run on pull requests opened by that built-in token.** So without any
+setup, **PR Checks will _not_ run on the version PR** — the checks just sit there empty.
+
+The fix is to give the workflow your own token instead. Do this once:
+
+1. Open <https://github.com/settings/tokens/new> (this is Settings → Developer settings → Personal
+   access tokens → **Tokens (classic)** → Generate new token).
+2. In **Note**, type anything, e.g. `snailicid3-consumer-npm CI`.
+3. Set **Expiration** to whatever you like (90 days is fine; you can regenerate later).
+4. Tick exactly two boxes:
+   - **`repo`** (the top checkbox — ticks all of its sub-boxes)
+   - **`workflow`**
+5. Scroll down, click **Generate token**, and **copy the token** — you only get to see it once.
+6. Come back to _this_ repository on GitHub → **Settings → Secrets and variables → Actions** →
+   **New repository secret**.
+7. For **Name** type exactly `GH_PAT` (all caps, with the underscore). For **Secret** paste the
+   token you copied. Click **Add secret**.
+
+Done. That's the whole thing.
+
+If you skip this, nothing breaks — the workflows still run, the version PR is still opened, you just
+have to click **Re-run** on the checks yourself (or push any commit to the PR branch to wake them
+up). The `GH_PAT` secret only makes that automatic.
+
 ## Shared configuration
 
 [![config release](https://img.shields.io/github/v/release/gbtunney/snailicid3?filter=%40snailicid3%2Fconfig%40*&label=%40snailicid3%2Fconfig&sort=semver)](https://github.com/gbtunney/snailicid3/releases?q=%40snailicid3%2Fconfig)
