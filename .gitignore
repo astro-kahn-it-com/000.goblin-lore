@@ -154,6 +154,11 @@ dist
 # Docs
 docs
 
+# Un-ignore bin scripts
+!bin/**/*.js
+!bin/**/*.mjs
+!bin/**/*.cjs
+
 # Un-ignore css & vite module declarations
 !vite-env.d.ts
 !css.d.ts
