@@ -84,7 +84,7 @@ check_protected_branch() {
     operation="$1"
     branch="$(get_current_branch)"
 
-    if printf '%s\n' "$branch" | grep -Eq '^(master|main)$'; then
+    if printf '%s\n' "$branch" | grep -Eq '^(master)$'; then
         run_snail_sh critical "Direct $operation on protected branch '$branch' is not allowed."
         run_snail_sh status_pair 'Branch' "$branch" critical
         return 1
