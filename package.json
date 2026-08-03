@@ -38,7 +38,7 @@
         "\n========== LIFECYCLE >> ==========": "",
         "uninstall": "npm run clean && rm -rf node_modules package-lock.json",
         "prepare": "husky",
-        "lint:staged": "npm exec -- lint-staged --relative",
+        "lint:staged": "npm exec -- lint-staged --config .lintstagedrc.js --relative",
         "postinstall": "npm exec -- patch-package && npm exec -- jiti ./bin/esbuild-patch.ts && npm run build:config:ts",
         "\n========== CHECK >> ==========": "",
         "check": "npm run build:all:ts && npm run lint",
