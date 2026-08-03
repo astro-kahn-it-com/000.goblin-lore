@@ -13,16 +13,11 @@
     "files": ["package.json"],
 
     "include": [
-        "./.markdownlint-cli2.mts",
-        "./.lintstagedrc.mts",
+        "./.markdownlint-cli2.ts",
+        "./.lintstagedrc.ts",
         "./*.ts",
-        "./*.cts",
-        "./*.mts",
         "./src/**/*.ts",
-        "./src/**/*.cts",
-        "./src/**/*.mts",
         "./**/*.test.ts",
-        "./**/*.test.mts",
-        "./**/*.test.cts"
+        "./bin/**/*.ts"
     ]
 }

@@ -10,6 +10,6 @@
         "noEmit": false
     },
     "exclude": ["node_modules", "scratch", "vitest.config.ts", "tsdown.ts"],
-    "files": ["./.markdownlint-cli2.mts", "./.lintstagedrc.mts"],
-    "include": ["./*.ts", "./*.cts", "./*.mts"]
+    "files": ["./.markdownlint-cli2.ts", "./.lintstagedrc.ts"],
+    "include": ["./*.ts"]
 }
