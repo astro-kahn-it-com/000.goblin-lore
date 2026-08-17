@@ -12,3 +12,5 @@ export const sampleFunc = (value: HelloWorld): HelloWorld => {
 }
 
 sampleFunc('herp derp')
+
+export * from './sequence-specification/index.js'
