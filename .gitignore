@@ -151,8 +151,8 @@ dist
 *.d.cts.map
 *.map
 
-# Docs
-docs
+# Doc
+doc
 
 # Un-ignore bin scripts
 !bin/**/*.js

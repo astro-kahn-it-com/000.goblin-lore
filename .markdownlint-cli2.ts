@@ -4,9 +4,15 @@ export default Markdownlint.defineConfig(
         cwd: import.meta,
         ignores: ['data/**'],
         rules: {
-            MD013: false,
+            MD001: false,
+            MD013: {
+                code_blocks: false,
+                line_length: 160,
+                tables: false,
+            },
             MD028: false,
             MD033: false,
+            MD036: false,
             MD041: false,
         },
     }),
