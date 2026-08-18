@@ -7,6 +7,7 @@ export const CharacterSchema = z.object({
     linked_possessions: z.array(z.string()).optional(),
     location: z.string().optional(),
     name: z.string(),
+    retirement_reason: z.string().optional(),
     type: z.literal('character'),
 })
 
@@ -17,6 +18,7 @@ export const LocationSchema = z.object({
     linked_possessions: z.array(z.string()).optional(),
     name: z.string(),
     participants: z.array(z.string()).optional(),
+    retirement_reason: z.string().optional(),
     type: z.literal('location'),
 })
 
@@ -27,6 +29,7 @@ export const GrievanceSchema = z.object({
     name: z.string(),
     owner: z.string().optional(),
     participants: z.array(z.string()).optional(),
+    retirement_reason: z.string().optional(),
     type: z.literal('grievance'),
 })
 
@@ -36,6 +39,7 @@ export const PossessionSchema = z.object({
     location: z.string().optional(),
     name: z.string(),
     owner: z.string().optional(),
+    retirement_reason: z.string().optional(),
     type: z.literal('possession'),
 })
 

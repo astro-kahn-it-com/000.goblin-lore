@@ -1,10 +1,20 @@
 import { validateCorpusFile } from '../implement-pass-1-shape-validation/index.js'
+import type { ValidationSuccess } from '../implement-pass-1-shape-validation/index.js'
 import { executePass2 } from '../implement-pass-2-relational-integrity/index.js'
 import { buildRelationalIndex } from '../implement-the-relational-index-builder/index.js'
 
-export type CompilerResult = {
+export type CompilerFailure = {
     errors: Array<unknown>
-    success: boolean
+    success: false
+}
+
+export type CompilerResult = CompilerFailure | CompilerSuccess
+
+export type CompilerSuccess = {
+    activeIndex: Map<string, ValidationSuccess>
+    errors: []
+    fullIndex: Map<string, ValidationSuccess>
+    success: true
 }
 
 export function compileCorpusFiles(
@@ -28,18 +38,21 @@ export function compileCorpusFiles(
     }
 
     // Relational Index Builder
-    let index
+    let fullIndex
+    let activeIndex
     try {
-        index = buildRelationalIndex(parsedFiles)
+        const indexes = buildRelationalIndex(parsedFiles)
+        fullIndex = indexes.fullIndex
+        activeIndex = indexes.activeIndex
     } catch (err) {
         return { errors: [err], success: false }
     }
 
     // Pass 2: Relational Integrity
-    const pass2Result = executePass2(parsedFiles, index)
+    const pass2Result = executePass2(parsedFiles, fullIndex)
     if (!pass2Result.success) {
         return { errors: pass2Result.errors, success: false }
     }
 
-    return { errors: [], success: true }
+    return { activeIndex, errors: [], fullIndex, success: true }
 }

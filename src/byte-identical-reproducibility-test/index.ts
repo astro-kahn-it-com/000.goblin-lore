@@ -1,4 +1,3 @@
-import { validateCorpusFile } from '../implement-pass-1-shape-validation/index.js'
 import { serializeDeterministic } from '../implement-the-deterministic-serializer/index.js'
 import { generateVersionStamp } from '../implement-version-stamping/index.js'
 import type { CompiledState } from '../index-structure-specification/index.js'
@@ -21,19 +20,16 @@ export function buildCompiledState(
         possessions: {},
     }
 
-    for (const file of files) {
-        const parsed = validateCorpusFile(file.filePath, file.content)
-        if (parsed.success && !parsed.data.historical_reference) {
-            const data = parsed.data
-            if (data.type === 'character') {
-                state.characters[data.id] = data
-            } else if (data.type === 'grievance') {
-                state.grievances[data.id] = data
-            } else if (data.type === 'location') {
-                state.locations[data.id] = data
-            } else if (data.type === 'possession') {
-                state.possessions[data.id] = data
-            }
+    for (const item of result.activeIndex.values()) {
+        const data = item.data
+        if (data.type === 'character') {
+            state.characters[data.id] = data
+        } else if (data.type === 'grievance') {
+            state.grievances[data.id] = data
+        } else if (data.type === 'location') {
+            state.locations[data.id] = data
+        } else if (data.type === 'possession') {
+            state.possessions[data.id] = data
         }
     }
 

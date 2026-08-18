@@ -1,9 +1,6 @@
 import type { ValidationSuccess } from '../implement-pass-1-shape-validation/index.js'
+import { checkRetiredReference } from '../implement-the-historical-reference-exception-check/index.js'
 import { RelationalFieldsBySchema } from '../relational-field-inventory/index.js'
-import {
-    hasHistoricalReferenceFlag,
-    isRetired,
-} from '../retirement-awareness-logic/index.js'
 
 export type Pass2Failure = {
     errors: Array<{
@@ -45,16 +42,19 @@ export function executePass2(
                                 missingTargetId: targetId,
                                 sourceId: data.id,
                             })
-                        } else if (
-                            isRetired(target.filePath) &&
-                            !hasHistoricalReferenceFlag(data)
-                        ) {
-                            errors.push({
-                                field,
-                                missingTargetId: targetId,
-                                reason: 'Target is retired and no historical_reference flag is present',
-                                sourceId: data.id,
-                            })
+                        } else {
+                            const retiredError = checkRetiredReference(
+                                target.filePath,
+                                data,
+                            )
+                            if (retiredError) {
+                                errors.push({
+                                    field,
+                                    missingTargetId: targetId,
+                                    reason: retiredError,
+                                    sourceId: data.id,
+                                })
+                            }
                         }
                     }
                 }
@@ -66,16 +66,19 @@ export function executePass2(
                         missingTargetId: value,
                         sourceId: data.id,
                     })
-                } else if (
-                    isRetired(target.filePath) &&
-                    !hasHistoricalReferenceFlag(data)
-                ) {
-                    errors.push({
-                        field,
-                        missingTargetId: value,
-                        reason: 'Target is retired and no historical_reference flag is present',
-                        sourceId: data.id,
-                    })
+                } else {
+                    const retiredError = checkRetiredReference(
+                        target.filePath,
+                        data,
+                    )
+                    if (retiredError) {
+                        errors.push({
+                            field,
+                            missingTargetId: value,
+                            reason: retiredError,
+                            sourceId: data.id,
+                        })
+                    }
                 }
             }
         }

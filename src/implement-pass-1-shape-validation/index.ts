@@ -1,4 +1,5 @@
 import matter from 'gray-matter'
+import { validateRetirementMetadata } from '../implement-retirement-metadata-validation/index.js'
 import {
     type AnyCorpus,
     AnyCorpusSchema,
@@ -42,6 +43,15 @@ export function validateCorpusFile(
 
         return {
             error: `Schema validation failed: ${formattedErrors}`,
+            filePath,
+            success: false,
+        }
+    }
+
+    const retirementError = validateRetirementMetadata(filePath, parsed.data)
+    if (retirementError) {
+        return {
+            error: `Schema validation failed: ${retirementError}`,
             filePath,
             success: false,
         }

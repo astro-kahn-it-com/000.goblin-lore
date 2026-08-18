@@ -32,8 +32,8 @@ describe('Pass 2 Relational Integrity', () => {
                 success: true,
             },
         ]
-        const index = buildRelationalIndex(corpus)
-        const result = executePass2(corpus, index)
+        const { fullIndex } = buildRelationalIndex(corpus)
+        const result = executePass2(corpus, fullIndex)
 
         expect(result.success).toBe(true)
     })
@@ -61,8 +61,8 @@ describe('Pass 2 Relational Integrity', () => {
                 success: true,
             },
         ]
-        const index = buildRelationalIndex(corpus)
-        const result = executePass2(corpus, index)
+        const { fullIndex } = buildRelationalIndex(corpus)
+        const result = executePass2(corpus, fullIndex)
 
         expect(result.success).toBe(false)
         expect((result as any).errors).toEqual(
@@ -99,8 +99,8 @@ describe('Pass 2 Relational Integrity', () => {
                 success: true,
             },
         ]
-        const index = buildRelationalIndex(corpus)
-        const result = executePass2(corpus, index)
+        const { fullIndex } = buildRelationalIndex(corpus)
+        const result = executePass2(corpus, fullIndex)
 
         expect(result.success).toBe(false)
         expect((result as any).errors).toEqual(
@@ -134,8 +134,8 @@ describe('Pass 2 Relational Integrity', () => {
                 success: true,
             },
         ]
-        const index = buildRelationalIndex(corpus)
-        const result = executePass2(corpus, index)
+        const { fullIndex } = buildRelationalIndex(corpus)
+        const result = executePass2(corpus, fullIndex)
 
         expect(result.success).toBe(true)
     })
