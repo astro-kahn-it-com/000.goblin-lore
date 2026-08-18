@@ -11,3 +11,10 @@ export async function testCurveEdit(fixturePath: string) {
   // 3. Diff against baseline
   // 4. Assert only curve diverged
 }
+
+export async function testSettingEdit(fixturePath: string) {
+  // 1. Read fixture, mutate Setting description
+  // 2. Extract
+  // 3. Diff against baseline
+  // 4. Assert only setting diverged
+}
