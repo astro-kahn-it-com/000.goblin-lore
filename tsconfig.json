@@ -19,6 +19,7 @@
         "./src/**/*.ts",
         "./**/*.test.ts",
         "./bin/**/*.ts",
-        "./scripts/**/*.ts"
+        "./scripts/**/*.ts",
+        "./worker-sower/**/*.ts"
     ]
 }
