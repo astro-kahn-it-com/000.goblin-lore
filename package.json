@@ -91,6 +91,9 @@
         "npm": ">=10.0.0"
     },
     "packageManager": "npm@10.9.2",
+    "workspaces": [
+        "../../campc-it-com/worker-sower"
+    ],
     "files": [
         "CHANGELOG.md",
         "dist",
