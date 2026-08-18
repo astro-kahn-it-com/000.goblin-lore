@@ -58,12 +58,13 @@
         "clean": "npm run clean:ts && npm run clean:build"
     },
     "dependencies": {
-        "@snailicid3/utils": "^0.0.5"
+        "@snailicid3/utils": "^0.0.5",
+        "zod": "^4.4.3"
     },
     "devDependencies": {
-        "@snailicid3/build-config": "^0.0.8",
         "@changesets/cli": "^2.31.1",
         "@commitlint/cli": "^21.2.1",
+        "@snailicid3/build-config": "^0.0.8",
         "@snailicid3/config": "^0.2.0",
         "@types/node": "^24.13.2",
         "@types/react": "^19.2.17",
@@ -78,10 +79,11 @@
         "markdownlint-cli2": "^0.23.1",
         "patch-package": "^8.0.1",
         "prettier": "^3.9.6",
+        "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
+        "unrun": "^0.3.1",
         "vite": "^8.1.1",
-        "vitest": "^4.1.9",
-        "tsdown": "^0.22.14"
+        "vitest": "^4.1.9"
     },
     "engines": {
         "node": "^20.11.0",
@@ -104,10 +106,9 @@
     },
     "main": "./dist/index.cjs",
     "module": "./dist/index.mjs",
-    "types": "./types/index.d.ts",
+    "types": "./dist/index.d.cts",
     "exports": {
         ".": {
-            "types": "./types/index.d.ts",
             "import": "./dist/index.mjs",
             "require": "./dist/index.cjs"
         },
