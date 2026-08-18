@@ -18,6 +18,7 @@
         "commitlint": "npm exec -- commitlint",
         "\n========== BUILD >> ==========": "",
         "build": "npm run build:all:ts && npm exec -- tsdown",
+        "build:ordered": "npm exec -- jiti ./scripts/build-ordered.ts",
         "build:ts": "npm exec -- tsc --build tsconfig.build.json",
         "build:config:ts": "npm exec -- tsc --build tsconfig.config.json",
         "build:all:ts": "npm run build:config:ts && npm run build:ts && npm run check:ts",

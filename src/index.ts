@@ -13,4 +13,6 @@ export const sampleFunc = (value: HelloWorld): HelloWorld => {
 
 sampleFunc('herp derp')
 
+export * from './build-the-ordered-script/index.js'
+export * from './failure-halt-behavior-design/index.js'
 export * from './sequence-specification/index.js'
