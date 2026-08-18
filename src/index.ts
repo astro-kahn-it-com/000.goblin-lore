@@ -13,18 +13,22 @@ export const sampleFunc = (value: HelloWorld): HelloWorld => {
 
 sampleFunc('herp derp')
 
+export * from './atomic-write-crash-simulation/index.js'
 export * from './build-the-order-log-writer/index.js'
 export * from './build-the-ordered-script/index.js'
+export * from './byte-identical-reproducibility-test/index.js'
 export * from './cache-clearing-preamble/index.js'
 export * from './clean-room-single-run-proof/index.js'
-export * from './determinism-strategy/index.js'
 export * from './determinism-strategy/index.js'
 export * from './failure-halt-behavior-design/index.js'
 export * from './failure-halt-proof/index.js'
 export * from './implement-pass-1-shape-validation/index.js'
 export * from './implement-pass-2-relational-integrity/index.js'
+export * from './implement-the-atomic-write/index.js'
 export * from './implement-the-deterministic-serializer/index.js'
 export * from './implement-the-relational-index-builder/index.js'
+export * from './implement-version-stamping/index.js'
+export * from './index-lookup-performance-check/index.js'
 export * from './index-structure-specification/index.js'
 export * from './per-field-negative-fixture-tests/index.js'
 export * from './performance-benchmark/index.js'
