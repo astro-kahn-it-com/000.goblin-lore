@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import {
     CharacterSchema,
+    FactionSchema,
     GrievanceSchema,
     LocationSchema,
     PossessionSchema,
@@ -13,6 +14,7 @@ export const CompiledStateMetadataSchema = z.object({
 
 export const CompiledStateSchema = z.object({
     characters: z.record(z.string(), CharacterSchema),
+    factions: z.record(z.string(), FactionSchema).optional(),
     grievances: z.record(z.string(), GrievanceSchema),
     locations: z.record(z.string(), LocationSchema),
     metadata: CompiledStateMetadataSchema,
@@ -26,6 +28,7 @@ export type CompiledStateMetadata = z.infer<typeof CompiledStateMetadataSchema>
 
 export {
     type Character,
+    type Faction,
     type Grievance,
     type Location,
     type Possession,

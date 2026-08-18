@@ -43,15 +43,28 @@ export const PossessionSchema = z.object({
     type: z.literal('possession'),
 })
 
+export const FactionSchema = z.object({
+    historical_reference: z.boolean().optional(),
+    id: z.string(),
+    leader: z.string().optional(),
+    location: z.string().optional(),
+    members: z.array(z.string()).optional(),
+    name: z.string(),
+    retirement_reason: z.string().optional(),
+    type: z.literal('faction'),
+})
+
 export const AnyCorpusSchema = z.discriminatedUnion('type', [
     CharacterSchema,
     LocationSchema,
     GrievanceSchema,
     PossessionSchema,
+    FactionSchema,
 ])
 
 export type AnyCorpus = z.infer<typeof AnyCorpusSchema>
 export type Character = z.infer<typeof CharacterSchema>
+export type Faction = z.infer<typeof FactionSchema>
 export type Grievance = z.infer<typeof GrievanceSchema>
 export type Location = z.infer<typeof LocationSchema>
 export type Possession = z.infer<typeof PossessionSchema>

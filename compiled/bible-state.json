@@ -1,0 +1,64 @@
+{
+    "characters": {
+        "char_bog": {
+            "id": "char_bog",
+            "linked_grievances": ["griev_stolen_stick"],
+            "linked_possessions": ["poss_stick"],
+            "location": "loc_swamp",
+            "name": "Bog",
+            "type": "character"
+        }
+    },
+    "factions": {
+        "fac_swamp_clan": {
+            "id": "fac_swamp_clan",
+            "leader": "char_bog",
+            "location": "loc_swamp",
+            "members": ["char_bog"],
+            "name": "Mud-Foot Clan",
+            "type": "faction"
+        }
+    },
+    "grievances": {
+        "griev_old_feud": {
+            "historical_reference": true,
+            "id": "griev_old_feud",
+            "location": "loc_swamp",
+            "name": "Ancient Swamp Dispute",
+            "owner": "char_bog",
+            "participants": ["char_bog", "char_mordecai"],
+            "type": "grievance"
+        },
+        "griev_stolen_stick": {
+            "id": "griev_stolen_stick",
+            "location": "loc_swamp",
+            "name": "Stole my stick",
+            "owner": "char_bog",
+            "participants": ["char_bog"],
+            "type": "grievance"
+        }
+    },
+    "locations": {
+        "loc_swamp": {
+            "id": "loc_swamp",
+            "linked_grievances": ["griev_stolen_stick"],
+            "linked_possessions": ["poss_stick"],
+            "name": "The Murky Swamp",
+            "participants": ["char_bog"],
+            "type": "location"
+        }
+    },
+    "metadata": {
+        "compiledAt": "2026-08-18T13:24:32.053Z",
+        "corpusHash": "0f2b6638e2bfaaca11b389dad4ad5cbad4b5100d98fdc7d77357fe8b264768d5"
+    },
+    "possessions": {
+        "poss_stick": {
+            "id": "poss_stick",
+            "location": "loc_swamp",
+            "name": "The Good Stick",
+            "owner": "char_bog",
+            "type": "possession"
+        }
+    }
+}

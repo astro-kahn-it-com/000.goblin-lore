@@ -8,5 +8,10 @@ export default defineConfig({
             '**/build/**',
             '**/scratch/**',
         ],
+        include: [
+            '**/*.{test,spec}.?(c|m)[jt]s?(x)',
+            '**/test.ts',
+            '../../campc-it-com/goblin-extract/test.ts',
+        ],
     },
 })

@@ -19,6 +19,7 @@
         "\n========== BUILD >> ==========": "",
         "build": "npm run build:all:ts && npm exec -- tsdown",
         "build:ordered": "npm exec -- jiti ./scripts/build-ordered.ts",
+        "compile": "npm exec -- jiti ./compile.ts",
         "build:ts": "npm exec -- tsc --build tsconfig.build.json",
         "build:config:ts": "npm exec -- tsc --build tsconfig.config.json",
         "build:all:ts": "npm run build:config:ts && npm run build:ts && npm run check:ts",
@@ -92,7 +93,8 @@
     },
     "packageManager": "npm@10.9.2",
     "workspaces": [
-        "../../campc-it-com/worker-sower"
+        "../../campc-it-com/worker-sower",
+        "../../campc-it-com/goblin-extract"
     ],
     "files": [
         "CHANGELOG.md",

@@ -31,12 +31,20 @@ describe('Relational Field Inventory', () => {
         expect(RelationalFieldsBySchema.possession).toContain('location')
     })
 
+    it('contains the expected relational fields for factions', () => {
+        expect(RelationalFieldsBySchema.faction).toContain('leader')
+        expect(RelationalFieldsBySchema.faction).toContain('members')
+        expect(RelationalFieldsBySchema.faction).toContain('location')
+    })
+
     it('has a unified list of all relational fields', () => {
         expect(AllRelationalFields).toContain('owner')
         expect(AllRelationalFields).toContain('participants')
         expect(AllRelationalFields).toContain('location')
         expect(AllRelationalFields).toContain('linked_grievances')
         expect(AllRelationalFields).toContain('linked_possessions')
-        expect(AllRelationalFields.length).toBe(5)
+        expect(AllRelationalFields).toContain('leader')
+        expect(AllRelationalFields).toContain('members')
+        expect(AllRelationalFields.length).toBe(7)
     })
 })
