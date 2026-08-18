@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 export const CharacterSchema = z.object({
+    historical_reference: z.boolean().optional(),
     id: z.string(),
     linked_grievances: z.array(z.string()).optional(),
     linked_possessions: z.array(z.string()).optional(),
@@ -10,6 +11,7 @@ export const CharacterSchema = z.object({
 })
 
 export const LocationSchema = z.object({
+    historical_reference: z.boolean().optional(),
     id: z.string(),
     linked_grievances: z.array(z.string()).optional(),
     linked_possessions: z.array(z.string()).optional(),
@@ -19,6 +21,7 @@ export const LocationSchema = z.object({
 })
 
 export const GrievanceSchema = z.object({
+    historical_reference: z.boolean().optional(),
     id: z.string(),
     location: z.string().optional(),
     name: z.string(),
@@ -28,6 +31,7 @@ export const GrievanceSchema = z.object({
 })
 
 export const PossessionSchema = z.object({
+    historical_reference: z.boolean().optional(),
     id: z.string(),
     location: z.string().optional(),
     name: z.string(),
