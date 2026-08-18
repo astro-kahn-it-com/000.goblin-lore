@@ -115,9 +115,9 @@ Two GitHub Actions workflows live in `.github/workflows/`:
 - **PR Checks** (`pr-checks.yml`) — runs on every pull request into `main`. It installs
   dependencies, runs `build`, then runs `test`, `docs:build`, and `api:check` _only if_ those
   scripts exist (via `npm run … --if-present`).
-- **Push Main** (`push-main.yml`) — runs on every push to `main`. If there are pending changesets
-  it opens (or updates) a "version packages" pull request on a `release/<slug>` branch. Once that
-  PR is merged and no changesets remain, it creates a GitHub Release tagged `v<version>`.
+- **Push Main** (`push-main.yml`) — runs on every push to `main`. If there are pending changesets it
+  opens (or updates) a "version packages" pull request on a `release/<slug>` branch. Once that PR is
+  merged and no changesets remain, it creates a GitHub Release tagged `v<version>`.
 
 ### Optional but recommended: the `GH_PAT` secret
 
@@ -137,8 +137,8 @@ The fix is to give the workflow your own token instead. Do this once:
    - **`repo`** (the top checkbox — ticks all of its sub-boxes)
    - **`workflow`**
 5. Scroll down, click **Generate token**, and **copy the token** — you only get to see it once.
-6. Come back to _this_ repository on GitHub → **Settings → Secrets and variables → Actions** →
-   **New repository secret**.
+6. Come back to _this_ repository on GitHub → **Settings → Secrets and variables → Actions** → **New
+   repository secret**.
 7. For **Name** type exactly `GH_PAT` (all caps, with the underscore). For **Secret** paste the
    token you copied. Click **Add secret**.
 
@@ -246,11 +246,7 @@ export default config
   extends: '@snailicid3/config/tsconfig.typecheck',
   exclude: ['./node_modules'],
   files: ['package.json'],
-  include: [
-    './*.ts',
-    './src/**/*.ts',
-    './**/*.test.ts',
-  ],
+  include: ['./*.ts', './src/**/*.ts', './**/*.test.ts'],
 }
 ```
 
