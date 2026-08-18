@@ -114,5 +114,8 @@
             "require": "./dist/index.cjs"
         },
         "./package.json": "./package.json"
-    }
+    },
+    "workspaces": [
+        "worker-sower"
+    ]
 }
